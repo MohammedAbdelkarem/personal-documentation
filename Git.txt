@@ -1,0 +1,162 @@
+git config --list: to bring all the configration info's
+
+git:to bring all the commands of git
+
+clear:clear the window
+
+repositores:
+
+local repo:exist in my computer and i can edit and work on it.
+
+remote repo:exist outside my computer and to work on it, i need to load it and work on it in my device,
+ then i need to upload it again to the main place outside my device.
+
+to create repo:git init project_name, this will create folder with a hidden file called .git
+
+ls:to show me what the directories i can access by the git
+
+if i enter cd project_name, i will be inside the repo and i will see the branch:(master), we will cover the branches soon.
+
+we also use ls to enter the current directory
+
+so when i stand inside my repo, if i pressed ls, nothing is gonna happen, because the repo is empty.
+but we have said that there is a hidden file inside the repo called .git
+so to show it we can type:(ls -a), this command will show us the hidden files inside the directory
+
+git status: to show the status of our repo
+
+touch file_name.anything: to add a file to the repo
+
+now to commit a file, we have to do two things:
+the first step:to make the file on the stage, by the command:git add file_name file2_name ...
+and to unstage it , it's done by the command:"git rm --cached file_name
+
+the second step:to add the file from the stage to the repo, by the command:
+git commit -m"message for that commit"
+
+git log: to know what is the changes that has been done at this directory(which we write this command on, so it we write this command on the repo(master),
+ the changes that has been maded in the repo will be appear,
+and the author name and the data of the change and the message of the change will appear as a details of the change.
+
+when we modify some file, the file will be modified and we need to do all the previous steps to upload it to the repo again(the staging and the commit)
+
+if we need to return back to some version of the code, we can do that by the command:git checkout commit_hash
+and the commit_hash we find it in the logs.
+
+we use branches to continue the work but in a separated branch, so the main version of the code(master)doesn't change,
+ we can then merge my branch to the master branch so my work appear.
+
+we creata a branch by the command:git branch branch_name
+
+and then we can go inside the branch by:git checkout branch_name
+
+note that the logs differ from the branches, so when i type:git log, the logs of the master branch will be only the changes that has been done at that branch,
+the same thing is correct for the other branches.
+
+well to combine my branch to the master branch, and apply the changes that has been done on the branche at the master branch, we do that by the command:git merge branch_name
+
+....................................................
+we have mentioned before that we have two kinds of repos:
+the local repo(in my device)
+and the remote repo(in the cloud)
+
+well the remote repo is in the github, we will learn how to deal with it.
+
+we know for sure how to create a repo in github.
+
+now to check if there is a connection between the remote repo and the local repo, it's done by the command:git remote -v
+and if there is no connection, nothing will appear.
+
+now we need to make a connection between the local and the remote repo, it's done by the command:
+git remote add .... repo_link
+and then the local repo will be at the cloud with all the details and changes and the logs(commits)
+then to upload the files from the local to the remote github, this done by the command:
+git push -u origin master
+and then all the files will be on the github
+
+well next, if i make some changes and i need to make some edit on the code, well to upload the edits:
+git add .
+git commit -m"message"
+git push
+.............................................................................
+now if someone has his project,suppose that he is the manager, and we need to work on that project,
+
+we will be able to do that by something called fork, it's about cloning the repo into our profile and then work to it.
+
+then to work on that repo(after we clone it to our profile), we have two ways:
+
+the first way:to make the editing on the main branch, and then make a pull request to notify the manager that we have a modifying,
+and then he can see those modifies and accept them so they will be merged with the main project, or not(dont accept them)
+
+the second way:to make the editing on a branch, then merge the branch with the main branch from the pull request,
+then make a pull request to let the manager know, then he accept them or not.
+
+note1:the previous two ways done just in the github website, not on the git bash
+note2:the second way is more effective and used in the teams.
+
+git reset --hard<commit_hash(5d54f6465s4f5s5f64)>:to comeback to a specific version of my code
+
+.............................................................................
+- في حال كان بدك ترفع مشروع لاول مرة
+open git bash
+go to the project location and be inside it , then:
+git init
+git add .
+git commit -m "Push existing project to GitLab"
+git remote add source https://
+git push -u -f source master
+
+- في حال كان بدك ترفع لمشروع موجود 
+git branch (branch name) 
+git checkout (branch name)
+خطوة مو ضرورية
+git branch 
+git add .
+git commit -m "message"
+git push origin (branch name)
+
+((للفرونت))
+في حال بدك تنزل مشروع باك أول مرة 
+git clone <my-cool-project>
+composer install.
+cp .env.example .env.
+php artisan key:generate.
+php artisan migrate.
+php artisan serve.
+
+لو مشروع الباك عندك وبدك تنزل بس التحديثات
+git pull
+
+.............................................
+to work on some branch:
+
+create a branch:git branch branch_name
+
+then when we end of the feature that we are develop on this branch, we wil :
+git add .
+ and commit on this branch:git commit -m"message"
+git push origin main
+
+then to merge those changes with the main branch:
+we wil go to the main branch:git checkout branch
+then merge:git merge branch_name, and here the changes is applied on the local machine, so to push it to the repo on github:git push
+
+..........................................................................
+to edit on some existing repo, by taking a fork from it;
+1-take a fork
+
+2-clone the project to your machine
+
+3-make your changes and push it to the forked repo(on the main branch or in other branch)
+note:if you make the changes on other branch then you will need to merge them with the main branch
+
+4-make a pull request to apply my changes on the main branch at the main branch on the original repo, and then the original repo moderator will accept my changes and merge them with his repo.
+
+#error 
+RPC failed; HTTP 502 curl 22 The requested URL returned error: 502
+send-pack: unexpected disconnect while reading sideband packet
+fatal: the remote end hung up unexpectedly
+#الحل: 
+git config --local http.postBuffer 157286400
+
+المشكلة انو حجم المشروع كبير وبدنا نكبر حجم ال Buffer ليسع

@@ -1,0 +1,671 @@
+/*                   Immediate
+
+PHP OOP:
+
+from the class we will make an object.
+the class has an properties and methods
+
+oop != mvc
+oop is a programming paradigm
+mvc is an architecture pattern of module view controller and use oop princibles
+
+oop has 4 main princibles:
+-Inheritance
+-Abstraction
+-Encapsulation
+-Polymorphism
+........................................................
+
+when we make a class and we need to make an object , it's like that:
+$obj_name = new class_name();
+
+note that we can't use proberties and methods of the class unless if we include or requre the class file in the main file
+in the future we will not need that by using autoloading
+
+constructor:function will be called when we define an object
+we can us it to initialize the properties
+it's one of the magic methods (which start with __ )
+
+access modifires:
+    public:to access it from the whole project(of course after include the class)
+    private:to access it just from the scoop where we are in(class scoop)
+    protected:we will talk about it in Inheritance
+
+we can use destructor to close a recource after ending from it.
+note that when we use exit; statement inside the destructor, then the destructors of the other classes will not work.
+destructor will be proccess after at the end of the class methods calling(in other word:when there is no refernces to the methods or properties anymore)
+
+
+
+we can use stdclass methods to do alot of things,
+one of them is to decode json string into array or objects
+
+in case it's an array, then the key and value will still as they are
+but in case it's an objects , then the key will be the property and the value will be the value of the property
+
+json_decode(json_string , true(if we need it as an array , if we don't pass it it will be an objects))
+
+we can also use stdclass to creata an object and it's properties so fast , for example:
+    $o = new \stdClass();
+    $o->name = 'obj1';
+    $o->value = 44;
+so here create the object $o and set values to it's new properties
+
+
+we can cast things to an object , like arrays for example,
+and then the index will be the property and the elements of the array will be the values of the properties
+for example:
+    $arr = [1,2,3];
+    $ob = (object) $arr;
+and we can access to the properties and override it or print it or do the other things.
+
+if we cast a single value , then the property will be the datatype and the value will be the value
+for example:
+    $ob = (object) 1;
+    var_dump($ob);
+    output:scalar -> 1
+
+................................................
+constructor properties:
+
+instead of defining the properties of the class before the construct we can define them directly in the scoops() of the constructor and do whatever we want in them.this is mor cleaner.
+...........................................
+working with namespaces:
+
+consider the namespce as a virtual path, we us it to organize our code.
+suppose we have a two classes with the same name and in the main file we have define an object from the class , but it will not be known which class we meant 
+so to aviod that we will give every class a namespace, we put it at the beginning of the code and after declear(strict type) statement.
+and then when creating the object , after new we write the namespace of the wanted class then contining...
+
+another way is to import the class file to the main file using (use) keyword and after it we put:filename\classname.
+
+php will load the classes and other things from the namespace
+so we can define an object from class1 inside class2 while both classes ar in the same namespace
+
+note:when we use the namespace , it's better to use the fully qualified name instead of qualified name
+qualified name: foo\bar
+fully qualified name: \foo\bar
+
+note:when using the built in classes or functions , it's better to put\ before them , to make sure that we use really the built in class or function in case there is another class or function with the same name of built in classes or functions
+
+
+if we have the first namespace:foo\bar1
+and the second namespace:foo\bar2
+so when importing them we have two ways:
+the normal way:use foo\bar1
+               use foo\bar2
+the cleaner way:use foo\{bar1 , bar2}
+
+important note:
+as we know when we include file inside another, both of them will extends each other variables
+but the namespaces which we import will not be extends.
+.......................................................................................
+autoloading:
+
+as we know we can use require or include to include the wanted file in the main file,
+however,the file could have alot of functionalities so the requires will be sooo long,
+to avoid that, we can simply require or inclue this folder(which has alll the classes we need)
+in spl_autoload_register(function($all){
+    require 'file_name/' . $all . '.php';
+});
+and then any class we need to call from this file will be there for us.
+note that we should name the file and the class at the same name(and this is a coding styles: to make the class name same with his file).
+
+note that we should use require instead of require_once,for better performence
+
+
+we can also put more than one autoloader , and if we need one of them to work before the other, we just pass a second parameter to it (after the function), which is true.
+
+
+note:for coding styles, you can install psr plugin for your ide to format the code as php codingstyle
+
+the coding styles about autoloading:it shouldn't throw an exeption , nust not raise an error and shouldn't return a value.
+while it can throw an error if the file not exist, that's why we should checkif the file exist or not:
+    spl_autoload_register(function($all){
+    $path = 'classes/' . $all . '.php';
+    if(file_exists(($path)))
+      require $path;
+});
+
+the above we call it a personal customized autoloader, while we can achieve it using composer.
+
+composer:
+
+Composer is a tool for dependency management in PHP. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you.
+
+Dependency management#
+Composer is not a package manager in the same sense as Yum or Apt are. Yes, it deals with "packages" or libraries, but it manages them on a per-project basis, installing them in a directory (e.g. vendor) inside your project. By default, it does not install anything globally. Thus, it is a dependency manager. It does however support a "global" project for convenience via the global command.
+
+This idea is not new and Composer is strongly inspired by node's npm and ruby's bundler.
+
+Suppose:
+
+You have a project that depends on a number of libraries.
+Some of those libraries depend on other libraries.
+Composer:
+
+Enables you to declare the libraries you depend on.
+Finds out which versions of which packages can and need to be installed, and installs them (meaning it downloads them into your project).
+You can update all your dependencies in one command.
+
+The nice thing about Composer is that handles downloading libraries for you all by itself. All you have to do is specify a list of the libraries you want and Composer does the rest.
+
+These things you think are easy to do manually (updating library versions, including them in your project etc) are all done automatically by Composer. What do you think is easier for yourself and your dev team? Installing a bunch of libraries manually - or installing Composer, writing a single composer.json file and typing "php composer.phar update."
+
+The biggest benefit of Composer is that it will automatically grab all libraries required by the library you want. Suppose you have a library A that needs B, and B needs C, and C needs D etc. Without Composer, you would have to do this yourself. And this takes time and risks error.
+
+in the video 39 the composer have been talked about , how to use it in autoloading and to install it.
+............................................................................................................
+
+class constants:
+constants as we know are immutable(we cant change their values after we define them)
+
+we can define constants in the class using const keyword
+
+if it public: we can access it fron the main file using:
+    classname::constant var
+    or
+    objectname::constant var
+
+if it private:we can just access it in hte class using :
+    classname::constant
+    or
+    self::constant
+note that self refer to the class,  it's the same as $this but with some differences we will cover them soon
+
+we have a built in property called class we can use it to know class name:
+    $obj = new class_name();
+    echo $obj::class;
+    or:
+    echo class_name:class;
+it's better to use enum (not at all cases)
+
+we can override the const value in the child class(after we Inherite it)
+
+........................................................................................ 
+static method:
+
+static property int the class it's the same for all instances,meaning that when we define an object from the class,the static properties will not be redifined, all of them are one for all the objects.
+
+that's why when we do for example increasing in the static properties, it will still as it because it the same for all instances
+
+so it's not for a specific object, it's for the whole class
+
+we can access the static property from the main file using classname::property
+
+but that will not work if it's private,unless if we access to it using a public static method.
+
+because the static methods and variables are for the class and not for specific object(like the normal properties)
+, we can't use $this keyword inside it.because it refer to an object, but we don't really have an object
+and instead of $this keyword we can use self keyword.
+
+accessing staticly:meaning to access the method or the variables using scoop resulotion(::)
+and we can't do that with non static variables or methods.
+
+.................................................................................
+ -Encapsulation:
+
+ putting all requirements and equipements in one container like a class for example.
+ it's to protect the object info's and make them hidden.
+
+ we can protect our properties by -Encapsulation, that can done by set the properties as a private, and just initialize them by setters and get them by the getters.
+
+ but, acctually, sometimes setters and getters will not be good, they maybe will make the situation bad and break the -Encapsulation.
+
+ so the point is:use setters and getters only when you feel that you should use them.
+
+ additional information:even if we set private to properties, we can access them using the builtin class:$ReflectionProperty:
+    $ob = new ReflectionProperty(class_name::class , 'the property');
+    $ob->setAccessible(true)
+    $ob->setValue($ob , newvalue)
+    $ob->getValue($ob)
+but probably we will not use it in production.
+.............................................................
+-Abstraction:
+
+it has a strong connect with -Encapsulation, -Abstraction maen to hide the internal implementation from the user
+
+note that we here talk about -Abstraction in general, but we will talk about abstract classes and funcgtions later.
+
+so back to -Abstraction meaning: you can have a method and give it your inputs and get the output, but you don't know it;s implementation.
+all you care about is to give it the input and expect the output.
+
+.........................................................................
+the differences between -Abstraction and -Encapsulation:
+    -Encapsulation hide the internal state or the informations
+    -Abstraction hide the actual implementation of these informations and state.
+..................................................................................
+Inheritance:
+
+the child will inherate public and protected methods , properties and constants.which then can be overriden.
+
+when we inherate all of that, we can't decrease it's access modifier(like:public->protected or private), but if we increase it(protected->public), that's fine.
+
+protected:the same as private , but it can be extended by the child.
+
+we can override the protected and public inherated properties and mthods.
+
+note:when we create an object from child class, it wil not call the parent constructor, just the child class constructor.
+but if the child constructor doesn't exist , the parent constructor will be called by default.
+note that the constructor is a function , so what we will say next applied on it also.
+
+when we need to override some of parent fuctions, we simply do that in child class at th normal way, but in some cases we maybe need to keep the original implementation of the method as it and add some new implementations to it.
+to do that we do the following:
+
+call the parent implementation using parent keyword:
+    parent::method_name();
+then write the adding implementation under it.
+
+note: we can't change the datatype of properties after inherate them.
+we also can't do that with the methods, and we can't add new parameters without initializing(without giving them a value) to methods, but we can add new parameters without initializing just to the constructors.
+
+if we have declear class as a final, we can't extends it.
+if we have declear method as final, we can't override it.
+
+
+we can't extends from two classes, but we can achieve multiple Inheritance:
+for example: 4 extends 3
+              3 extends 2
+              2 extends 1
+
+
+drawbacks of Inheritance:
+-maybe break the -Encapsulation,because we can access the public and protected properties from the childs classes.
+-we will inherate all the necessary and unnecessary properties and methods.
+
+so:use -Inheritance just when the realtionship bitween the parent class and the child class :(is_a)realtionship.
+otherwise, we should use composition, we will talk about it soon.
+
+examples of Inheritance and composition:
+we have a toaster, we have also a toasterpro which is_a toaster, so we consider that the toasterpro is a toaster, and we extends the toaster.
+we have an oven which also has_a small part for toasting, so when the relationship has_a:we use composition.
+in oven class we may need some methods from toaster class.
+so the relationship:(has_a or part_of):instead of inherate all the necessary and unnecessary features, we can use composition:
+simple example about composition:we can define an object from toaster inside oven class, then use it to reach toaster necessary features.
+.........................................................................................................
+-Abstraction:classes and methods:
+
+an abstract class is the template or the base class which the other classes extend from.
+we can't create an object from the abstract class.
+abstract class contain abstract methods and reugular methodws and properties.
+
+abstract methods:just a shape without implementation.
+
+so the abstract class show WHAT the abstract method do, but not HOW(not the implementation).
+the implementation should be in the childs classes which inherate from the abstract class.
+
+note that abstract methods can't be private, and that's make sense because we need to implement the abstract methods after extends them, and with private we will not be able to extend them.
+
+we use abstract classes and methods to force the devs to implement the important features,
+we can also use abstract class to put inside it some common features that we need to share it with the other child classes.
+
+if we have an abstract class and bunch of abstract methods, then it's better to reach to the methods using Interface insteaed of abstract class.
+we will talk about Interface soon.
+.......................................................................................
+Interface:
+interface is like a contract define all the necessary actions that the object may have.
+
+the class will implement the interface.
+
+in the interface we put the methods without implementation.
+we will implement them in the other classes.
+
+the methods in interface must be public, so we can implement it in the othe calsses.
+
+we can force the classes to use the magic methods(like constructor),by putting it in the interface
+and then all the classes that implement this interface will be forced to use this magic method.
+
+in Inheritance we can't extends more than one class, but here the class can implement multiple interfaces.
+
+we call the class which implement the interface: concrete class.
+
+unlike Inheritance, the interface can extends multiple other interfaces.
+but in this case the class must implement all the mehthods of interface and the methods of the other interfaces which has been extends.
+
+interface can't has properties, but it can has constants.
+remember that in Inheritance we can override the constants, but here in interfaces we can't override them, that is not allowed.
+
+suppose that we have two classes and both of them implement one interface.
+and suppose that we have a method inside one of these classes with an object from the type of the class.
+we mabe pass to it an object but from the other type of the class(the socond class) and this will cause an error.
+the point is: we can fix that using what we call datatype hint:by make the datatype of the object(the parameter):the interface name.to avoid the mistakes.
+
+differences bitween abstract class and interface:
+    -abstract class can contain methods with a=or without implementation , while interface only contain methods without implementation.
+    -abstract class can contain properties, while interface just contain methods and constants.
+    -abstract class can contain public and protetected methods , while interface only contain public methods.
+    -abstract class(or any class) can extends one class while the class can implement multiple interfaces.
+
+interface can be useful when we have different implementations for the one class, or when we have multiple cases of the status of the class.
+
+there are some ready interfaces we can use it to help us in our project, we simply implement it and change it's features in the different classes.
+.........................................................................................
+Magic methods:
+php define the magic methods with(__) like construct, if we need to declear our own method we can't name it with __ , we can override the magic methods.
+some magic methods:
+
+__set() / __get():we use them to set and get the properties even when they are private,but it's not recommended to usu them, just use them in some cases.
+
+__isset():to see if the element exist in array;
+__unset():to destroy the element.
+
+
+__call():we use it to avoid mistakes, like when we call a method doesn't exist, this method (__call) will handle that and do the implementation,this method has two parameters:the anem of the method and the arguments(an array)
+we have another same method but for calling the method staticly(by scoop resulotion) and this method is:__claastatic().
+
+__tostring():to convert the element to string.
+
+__invoke():useful when we call the object directly:
+like: $obj();
+this will cause an error, but with __invoke(), it will do the implementation of invoke method.
+
+it's better to use invoke in Single Responsibilities classes, and we will talk about that soon.
+but in general, it's like when we have one method in the whole class, then we can just declear invoke and call it directlu by the object.
+
+__debuginfo():
+as we know when we use var_dump() , all the informations will be printed, 
+well we may have some sensitive informations that we don't need to print it
+so by this method we can customize and select a specific informations to appear but not all of them(not the sensitive one's).
+....................................................................................
+Traits:
+
+one of the reasons explain why multiple inheritance(inherate from more than one class):
+because we maybe have in the two parent classes the same method, then when we extends them, the child class will not which class implementation will use.
+
+we can achieve multiple inheritance using interfaces or traits.
+
+we can put our code into trait, then use it in  our classes.
+
+think about traits as copy and paste code,
+so instead of dublicate the code, we simply put it in the trait, then use it by(use)keyword whnever we need.
+
+some roles about the traits:
+- if we have function in the class and we try to override it by using trait, this will not work.
+but if we do that with inheritance, it will work,for example if we extends a base class which has a function, and in the child class we (use) a trait which override the function in the base class.so here it will be overriden.
+
+-suppose that we use in the class two traits, both of them have methods with the same name, so to specify which method we need to use we will do that using (insteadof)keyword
+with the trait we want to use:
+    use unwantedtrait;
+    use wantedtrair{
+        wantedtrair::method_name insteadof unwantedtrait;
+    }
+
+-suppose that inside the trait we have a private function, we here still can access it from any class (use) this trait,but not from classes not using the trait.
+
+-we can use a trait inside other trait, and again think about it as copying and pasting codes.
+
+-traits can has properties, but we can't override it or change it's visibility or datatype when une it, it should be fully combetable.
+
+-in inheritance, the static property is shared and one cope for all the classes, while in traits the static property is different for every class.and that's make sense.
+so:every class with(use trait) will has it's own copy of static property which is in trait.
+
+advices:
+it's better to use traits just for simple code.
+
+we shouldn't use abstract methods in traits because we will have kind of forceing to implement,
+if we want forcing then simply use abstract class or interface.
+
+we mentioned before that we can access the private properties of the trait, also:we can override the final method which is in trait, and both of those things are bad and break language rules, so just use traits with simple part of the code.
+also, changing visibility is a drawback.
+
+summary:just use traits for one thing: prevent code duplication.
+
+......................................................................................................
+anonymous class:
+
+like anonymous functions, anonymous classes doesn't have a name.
+
+we can define anonymous class by new keyword, then class:
+    $obj = new class(constructor arguments,not necessary){
+        __constructor(){}
+
+    };
+we can implement interface , extends class, use traits.
+
+we can reach to anonymous class name using:get_class();
+
+we can make anonymous class inside normal class
+
+in nested classes , we can't reach the outer class properties from the inner anonymous class,
+but what we can do is to pass the properties to the inner class constructor, or simply extends the outer class.
+
+the main useing for anonymous classes:is for testing.
+......................................................................................
+object comparison , variables storage:
+
+when we compare two objects:
+in comparison operator(==): it will return true only the properties are the same and they are from the same instance(the same class),but without strict_type(loose comparison).
+in identity comparison(===):it will return true only when the objects are the same(ex:$ob2 = $ob1).
+
+objects is designed by value,so when we make a copy of object($ob1 = $ob2),
+they actually refer to the same object in the memory, so if we change one of them the other will change also.
+.................................................................................................
+object cloning:
+
+we can clone(copy) an object as we mentioned before by($obj1 = $obj2).
+but as we say this is not practical,because in memory it's one place in the memory.
+
+but we can actually clone object using clone keyword:
+$ob2 = clone $ob1;
+
+note that the new cloning object:the constructor of there class will not be called but instead the magic method clone() will be called, so we can put constructor implementation in clone magic method.
+
+......................................................................................................
+serialization:
+
+it's a proccess to convert a value into a string form.
+we can serialize any type of value exept resource and closure and som of the builtin php objects.
+
+we serialize and unserialize variables using serialize() and unserialize() functions.
+
+serialization is useful to pass values, or save them in the database to use them later or store them.
+
+when we serialize an object then it's properties will be serialized.
+and after serialization in the string form:
+if the property:
+    private:it will not appear 
+    protected:it will appear after (*)mark.
+    public:it will appear normally.
+
+when we unserialize an object, actually a new object is created.
+and this is a new way to clone the object. 
+
+we have a magic methods:__serialize() and __unserialize();
+__serialize():we put it in the class(which we will serialize it's object), and we put into this mehtod only the properties that we need to serialize(because maybe we don't need to serialize all the properties).
+__unserialize(array $data):we can use it to change some of properties values.
+
+note:we call __serialize() before we serialize the object, and we call __unserialize after unserialize the object.
+...............................................................................................
+Error handling:
+
+exception is an object from exception class which describe an error.
+
+we can throw exception manually using (throw)keyword or it will be thrown by the builtin functions in php.
+
+you can throw exception only if the instance of the throwen object is from exception class or from throwable interface.
+both of exception class and error class implement throwable interface.
+
+
+to throw exception:
+    throw new exceptionBuiltinFunction('error message propably').
+
+some of builtin functions:
+Exception():it's a general exception function.
+there are a lot of builtin function we can use,
+if we didn't find the suitable function we can create our own function (by creating customize exception class),but be careful that you should extends exception class or implements throwable interface(so that the throwen object become an instance of them and can be throwed).
+note that when we extends exception, it's properties will be extended, and we need to use it to customize our function
+these properties:
+$message:the message of the error.
+$code:the error code.
+$file:the filename where the error happened.
+$line:the line where the error happened.
+
+try_catch:
+
+we use try catch to deal with the exception which maybe will throed in (try)block.
+in catch we put what we need to do with this exception.
+we can simply print:'there is exception', but it's better to print the properties of the exception using the methods of exception class:
+    getline() , getfile() , germessage().
+
+try and catch blocks will allows us to throw an exception and complete the excution of the code instead of stopping it.
+
+try block will ahve catch block or finally block,but note that finally block will always excute regardless if the exception is exist or not.
+
+try block can have more than one catch block .or we can put the different types of exceptions in one catch block separated by (|).
+
+if we have a return statement inside catch block and we have also finally block, then first the finally block will be excuted then the value of catch block will be returned,
+and if we have return statement in both of finally and catch block, then one value will be returned which is the value of the finally block.
+
+we can catch the exception by catch blocks, if the suitable catch block doesn't found, then all the finally blocks will be excuted,then if also the exception is not catched yet, the the global exception handler will be excuted, and if this mehtod is not set from us(not exist in the code), then a fatal error will be the result.
+we can register the global exception handler by set_exception_handler(),
+
+note that the errors will not be able to catch, juat the exceptions.
+exception and error classes implements throwable interface.
+
+a pretty common way about customizing exceptions is:
+definning a exception class,put into it a static methods to handle the different types of the expected exceptions,
+then call the static methods whereever we want by the scoop resulotion(becaus it's static) like that:
+throw new class_name::method();
+...............................................................................................
+Datetime:
+
+we will work with datetime and time zones using Datetime class.
+
+the constructor of the Datetime object takes two parameters:datetime(string) and the timezone.
+the datetime accept any value of(tomorrow , next day , 1/7/2024).
+
+we can set the timezone by the constructor or by setTimezone().
+
+we can print the time in the wanted format using format().
+
+setTimezone() , setDate() , setTime():to modify the time zone and the date and the time.
+
+....................................................................................
+Superglobals:
+
+Superglobals are necessary for php applications because you will recive informations from the user or the forms and do some proccess , deal with cockies , upload files , looking for request and so on..
+
+Superglobals are built in variables that are available for use in our php code.
+
+we will cover:
+$_SERVER
+$_GET
+$_POST
+$_FILES
+$_SESSION
+$_COOKIE
+$_REQUEST
+$_ENV
+
+
+$_SERVER:
+
+$_SERVER is an array containing information such as headers, paths, and script locations. The entries in this array are created by the web server, therefore there is no guarantee that every web server will provide any of these; servers may omit some, or provide others not listed here. However, most of these variables are accounted for in the » CGI/1.1 specification, and are likely to be defined.
+
+contains informations about the server and excution environment.
+
+the content of this variable differ from server to server depending on server configration, some may contain more information and some may contain less.
+
+one of $_SERVER use cases is to build basic routing,
+and routing allows us to structure the application in a better way and in the way we want.
+
+there are too many different ways to routing, such as build it manually, use some packages by the composer , or by the framework.
+
+...............................................................
+$_GET and $_POST variables are arrays contain the user data and informations,which coming from api or javascript or....
+
+all of these informations are stored in the query string.
+
+to get the data or fetch it(bring it) we use $_GET.
+to modifay or update the data we use $_POST.
+
+when we search for something on google,these things are stored in the query string.
+
+we have another variable called $_REQUEST.
+this variable contain the data of get and post and also cookies at the same time,but it's better not to use it and use get and post instead of.
+
+get request appear in the url, while post request doesn't appear.
+
+.........................................................................................................................
+sessions and cookies are used to store a data at request time.
+they can be used in databases , caches , files....
+
+cookies are stored in the client side(like his computer).
+
+sessions are stored in the server side(server).
+
+sessions are destroyed once the browser are closed, while cookies will remain even if we close the browser, it will not be deleted unless if we did it by ourself.
+
+we set the sessions using session_start().
+
+note that sessions can  ot be start after any thing(it should start before any header have been sent, we will cover headers soon).
+so it's better to start sessions before anything and at the beginning.
+
+the reason why we have a warning when we start the session firstly:
+when we write anything of the code,it will be sent to the server, then the server will sent the response which include the headers, when we start the sessions that will modify the headers, which will cause the issues and warnings,note that there are other functions that also cause warning if we not putting it at the first.
+
+every time we start the session, a unique and new id is maded,and it be sent with the cookies.
+
+we can destroy the session using unset().
+
+cookies is a file that is stored in the user computer,
+
+once cookies is created then every request to the server will include them and the server can access them.
+
+use cases of cookies:
+    session management
+    store the informations to enhance user experience in the website.
+
+we can create the cookies by set_cookie();
+and there are several parameters to this functions:
+    cookie name 
+    value
+    unix timestamp(the time which after it the cookie will be deleted.)
+    path:which determines for which directory the sookie will be valid or available.
+    domain:to set for which domain the cookie will be available.
+    secure:true or false, if we need to make the sending of cookie within https connection or not.
+    httponly:true or false, which mean if we need to access the cookie only by http protocol and not from other thing like client side code like JS.
+note that we shouldn't include any sensitive informations in the cookies because anyone can access it.
+
+
+$_FILE:contain informations about the file we have upload.
+.........................................................................
+HTTP headers in php:
+
+when the client visit a website, or take any action in the website, he will send a http request to the server.
+then the server will take the request and proccess it and send a response to the client.
+and this called http message, it's about how the data exchanged between the werver and the client.
+
+the structure of response and request:
+    start line
+    http headers
+    body
+
+start line in request consist of:http method,request url and the protocol version.
+start line in response consist of:protocol version,status code and status text.
+
+http headers:allow the client and the server to pass some additional informations.
+these headers usually grouped in categories, like:
+    request headers
+    response headers
+    representation headers
+
+body:contain the data that associated with response or request.
+
+http response status code:
+100-199:informational
+200-299:success:
+    200-OK
+    201-Created
+    204-No content
+300-399:rediredt:
+    301-Moved Permanently
+    304-Not Modified
+400-499:Client Error:
+    401-Unauthorized:user who not logged in try to access something
+    403-Forbidden:user who logged in and try to access page he don't have premision to access it.
+    404-Not Found
+    405-Method Not Allowed:when the server doesn't allow a request to be made,(for example we send a post request but it's not allowed)
+500-599:Server Error:
+    500-Internal Server Error
+    502-Bad Gateway

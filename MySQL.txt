@@ -1,0 +1,293 @@
+/*
+introduction:
+
+Database:a collection of data stored in a format that can easly be accessed.
+
+in order to manage our database we use DBMS(Database Management System).
+
+we connect with DBMS and give it instructions to bring or modify the data,
+DBMS will excute the instructions and send the result back.
+
+DBMS types:relational ,and nonrelational(or nosql).
+
+
+in relational databases we store the data in tables that liked with each others using relashionships.
+
+SQL:Structured Query Language.
+
+we use SQL to query or modify our data.
+
+the most common relational databases:
+MySQL,SQL Server,Oracle.
+
+each DBMS has it's own flavor of SQL.and there instructions basred to SQL.
+any SQL instructions will work to any DBMS.
+
+in nonrelational databases we don't have tables or relashionships.
+
+NoSQL(nonrelational databases) don't understand SQL.they have their own query Language.
+..............................................................................................................................
+Creating the database:
+
+suppose that we have two tables,in these tables we have two columns that are the same , we here call those tables relationals, because there is a relation by this chared column.
+
+..........................................................
+the select statement, how to retrieve data from a single table.
+
+use keyword: to choose a database an deal with it.
+
+note that sql is not a case sensitive langeage, so we can write :use or USE.
+but the best practise is to capitalize the keywords, and write the other things with small.
+
+SELECT: to the columns we nedd to deal with , we write their name, if we need all of htem we write *
+FROM : to specify the table that we need to SELECT the columns from.
+WHERE: to choose or reach to a specified row.
+ORDER BY: to store the table by a column.
+
+note:the previous order(select , from  ,where , order by) should be applied, or we get an error.
+we should separate the multiple keywords by semicolon;
+
+we can comment the line by --
+...........................................................................
+the select clause:
+
+when we select a column , it will appear, if it's a numbers then we can apply operations on it, and the result is:
+the same column, but with a different values and different caption(the caption will be the operator), so to put our own caption,we write the new name after the operator and AS keyword:
+        SELECT old_price ,old_price - 10 AS new_price
+note that if we need to put the name with spaces(like:new price)then we put it in ''.
+    ex:AS 'new price'
+
+if we need to change some information int the table, then we simply go to it in the table and modify it, then we press "apply" and the changes will be applied.
+
+we can show a unique data from a column using DISTINCT keyword.
+ex:SELECT DISTINCT product FROM table_name....
+
+........................................................................................
+the where clause:
+
+we can use the operators in with where keyword:
+ex: WHERE birth_date > 1-3-2003
+.......................................................
+AND , OR and NOT operators:
+
+we can use these operators with WHERE to specify and mor filter the fetching data.
+ex:WHERE price > 100 AND date <= 1-9-2001 OR state = VA
+................................................................
+the in operator:
+
+we can use this operator or keyword to include multiple choices in simple statement.
+ex:WHERE state = 'VA' and WHERE state = 'FL'
+    we can write simply:WHERE state IN ('VA' , 'FL')
+...........................................................................
+the between operator:
+
+we use between operator to return a value bitween some values,
+ex: WHERE id >= 1 AND id <= 50
+   we can write simply:
+    WHERE id BETWEEN 1 AND 50
+note that the values ar included.
+..............................................................................
+the like operator:
+
+we use LIKE deyword to retrive a row match to a string.
+for ex:
+    WHERE first_name LIKE 'b%'
+    WHERE first_name LIKE '%b%'
+    WHERE first_name LIKE 'b__'
+note:
+% mean many chars, while _ mean one chars,
+............................................................................
+the REGEXP operator:
+
+it's same with LIKE but it's mor powerful,
+
+^ for the beginning
+$ for the end
+| logical or 
+[] sequence of chars 
+- range of chars
+
+ex:
+    WHERE first_name REGEXP 'jhon' :retrieve any string have the substring jhon
+    WHERE first_name REGEXP '^jhon' :retrieve the string which has jhon at the beginning
+    WHERE first_name REGEXP 'jhon$' :retrieve the string which has jhon at the end
+    WHERE first_name REGEXP 'jhon[ykl]' :retrieve the string which has jhon + y or k or l(jhony , jhonk , jhonl)
+    WHERE first_name REGEXP '[ykl]jhon' :retrieve the steing which has y or k or l + jhon(yjhon , kjhon , ljhon)
+    WHERE first_name REGEXP 'jhon|mary' :retrieve the string which has jhon or mary
+    WHERE first_name REGEXP '[c-f]jhon' :retrieve a string which has c or e or f + jhon(cjhon , ejohn , fjhon)
+.......................................................................................
+the IS NULL operator:
+
+we use it to get the rows with null value for some column,
+ex:WHERE phone_number IS NULL
+we can also get the opposite result:
+ex:WHERE phone_number IS NOT NULL
+.......................................................
+the ORDER BY clause:
+
+in relational databases, every table should has a primary key, which is has a unique values.
+ex:the id.
+
+we can sort the tables according to a column accending using ORDER BY keyword,
+or descending using ORDER BY column_name DESC
+we can also sort the table according to two or maor columns.
+ex:ORDER BY state , id.
+note that hte first thing we put will get a priority in sorting.
+so above ,state will get the priority.
+........................................................................
+the LIMIT clause:
+
+we use LIMIT keyword to retrieve a small number of rows,
+ex:LIMIT 3:will bring th first three rows
+ex:LIMIT 3,4:will ignore the first three rows and retrieve the next four rows.
+
+note that LIMIT should be come at the end, so the order:
+SELECT
+FROM 
+WHERE 
+ORDER BY 
+LIMIT 
+........................................................................
+Inner Joins:
+
+we can join a table from other table, so we can combine them .
+we do that using JOIN keyword.
+when we have two columns from two tables , having the same name,
+when we need to use them in SELECT or WHERE, we shoukd specified which one we mean, we can do that by table_name.column_name.
+
+note that the retrieved values will be only the shared values from the columns we pick.
+........................................................................
+Joining across Databases:
+
+we can do the previous, but one of the tables is from another Database,
+so in this case, we simply write database_name.table_name,
+but for the tables from the current database we have use, we don't put it's name because we have use it.
+.............................................................................
+Self Joins:
+
+we can join the table itself,ex:them anager an employees sample.
+............................................................................
+Joining multiple tables:
+
+same the previous simple join, we can join more than ine table,and ten as we knwo:
+we let (for each two tables) the shared columns equal to each others so can we can combine them together
+and it's not necessary for those columns to have the same name.the same or some shareable values are enough.
+...............................................................................
+compound join conditions:
+
+when we have two primary keys, we call it a table with composed primary key.
+to join from that table, we should use both of these keys to join, not just one key.
+..........................................................................................
+Outer Joins:
+
+as we know,when we join table from table, we put equation to combain the tables together.
+
+in case we have for ex: both tables have id, but the first table(which we join from) has all the values exept 1 and 3, 
+and the second table(which we join to) has all the values,
+so here when we make inner join(JOIN) , we just retrieve the shared values betwwen the tables(all of them exrpt 1 and 3).
+
+and to include all of them we need to use outer join(LEFT or RIGTH JOIN).
+
+so LEFT:refer to the table we join from.
+    RIGHT:refer to the table we join to.
+
+and the table we put is gonna retrieved regardless if it's shared or not.
+.....................................................................................
+self outer join:
+
+back to the manager and employees sample:we can present the manager using the outer join.
+...............................................................................
+The USING Clause:
+
+in joins, when we write:
+ON column1_name = column2_id
+
+in case the columns have the same name, we can simplified this statement:
+    so we write: USING(column_name).
+...........................................................................
+Natural Join:
+
+as we said before, the join will combine the tables by the shared column, and the shared column is by values(necessary) and by name(optional).
+
+well, natural join will let the join done by the shared column, but in this case it will not let us put the shared column, but it will guess it by itself by the name,so it can produce unexpected results,
+that's why it's better not to use it.
+.....................................................................................
+CROSS JOIN:
+
+we use cross join to combine every column from the first table with every column from the second table, regardless if there is a shared column or not.
+and that's done using CROSS JOIN keyword.
+..................................................................................
+Unions:
+
+soon we have been combine the columns together, now we can combine the rows together using UNOIN keyword.
+
+as we know,the select query stands for rows, so we can combine multiple rows by putting UNION keyword between those queries.
+.............................................................................
+Column attributes:
+
+if we go and opern the table in design mode, we will see a lot of attributes:
+    PK:stands for the primary key, and we can notice that it has a yellow color.
+    Dattype:we see varchar, we use it for textual data,we can use CHAR instead of it, but in this case it will add (50 - the addedstring.size()) as a spaces and that's a waste of memory,
+    so the best practise is to use VARCHAR.
+    NN:stands for isnull, which mean if the column can recieve null data ot not.
+    AI:stands for Auto Incremental, which mean that's the value will increase everytime when adding new row by one,(usually we use it with primary keys).
+    Default:to specify the default value of the row.
+.............................................................................
+Inserting a single row:
+
+we can insert a row to the table using INSERT , INTO and VALUES keyword.
+
+the formula:
+    INSERT INTO table_name(column1 , column2 , column3)
+                    VALUES(COLUMN1_VALUE , COLUMN2_VALUE,COLUMN3_VALUE).
+note that if we don't add a value for some column, it will take the default value,
+and for the primary columns, it's better not to add something to it,because it will do that automaticly depending on AI attribute.
+.......................................................................................
+Inserting a multiple rows:
+simply, the formula:
+    INSERT INTO table_name(column1 , column2 , column3)
+                    VALUES(COLUMN1_VALUE_row1 , COLUMN2_VALUE_row1 , COLUMN3_VALUE_row1),
+                          (COLUMN1_VALUE_row2 , COLUMN2_VALUE_row2 , COLUMN3_VALUE_row2)
+                          .
+                          .
+                          . 
+                          . 
+..................................................................................................
+creating a copy of table:
+
+to copy a table , we should firstly make a new table to copy the content to it.
+
+so we can create a table using the formula: CREATE TABLE table_name
+and then after that we write the select query to specify the data we need to add ,we can select all of it or just subquery(part of the data but not sll of it).
+
+we can also clear the new table by(trunck option)
+and then add new data, but here we will not use CREATE TABLE keywords, because the table is already exist.
+so we just add a data into it using INSERT INTO.
+...............................................................................
+updating the rows:
+
+we can update the date in a row by the formula:
+    UPDATE table_name 
+    SET column_name = (value from the same table or a new value we put as hardcode).
+    WHERE ......(to specify the rows we need to modifiy the data in).
+note that if we want to modify multiple rows , we should firstly turn off safe update(from edit...preferences....sqleditor).
+
+and actually we specify if we will modify single or multible rows by WHERE keyword.
+...........................................................................
+updating using subquiries:
+
+suppose that we need to update the row which has the id=3, but in the current table we don't have the id, and in other table we have it,
+so we can have it from this table using the subquirey .(look at the example in 3:02:01 in the course).
+and note that we write the subquery between ().
+
+and if the query return one row, we put = before the ()
+ but if it return multiple rows, we put IN before ()
+...................................................................................
+Deleting:
+
+we can delete single or multiple rows by the formula:
+
+    DELETE FROM table_name
+    WHERE ..... 
+and note that the previous rules of updating (quieres and ..) is applied here.
+...............................................................................

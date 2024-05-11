@@ -1,0 +1,187 @@
+/*                 Basics
+
+
+php is a scripting language,while c++ is programming language.
+actually, php stands for general purposes language.
+porogramming languages:need to compiled in machine.
+scripting languages:need to interpreted in server.
+
+how it works:
+the client will send a request to the server,
+the server will make operators in php, and it can also deal with database,
+then it the result back to the server then to the client.
+
+
+server in the hardware:it is a computer store the software,source code and others... 
+it can proces different requests using several protocols, typically its http protocol
+virtual hosts:where the single web server allocate the recources into multiple websites+
+the most commom webservers:Apache and Nginx
+
+how to install php requierements?
+
+1-php installed in OS:which is the hardest way
+2-XAMPP OR MAMP OR WAMP:the best way to get started,contain webserver , database and preconfigured 
+3-virtual machines , Docker:better alternative
+
+note: xampp is not the best choise for the production, because of several causes:
+    -problems in multiple php versions 
+    -problems in multiple mysql versions 
+    -difficult to maintain multiple projects 
+    -it maybe work just on your machine(production problems) 
+................................................................................................. 
+Compile time is the period when the programming code (such as C#, Java, C, Python) is converted to the machine code (i.e. binary code).
+ Runtime is the period of time when a program is running and generally occurs after compile time.
+..............................................
+constants:
+we can define constant variables using two things:
+-define(varname , varvalue , case sensitive)
+-const keyword 
+
+case sensitive:if we pass one, it will be insensitive, otherwise(0) , it is sensitive.
+sensitive: doesn't matter if the name of hte variable the same when print or overriding it,sensitive is the opposite 
+
+
+we cant use const keyword in control structures , like conditional and expressional definitions(if , switch , .... , loops)
+we cant use define() method inside classes or in opposite
+
+summary:Unless you need any type of conditional or expressional definition, use consts instead of define()s – simply for the sake of readability!
+note:expressional definitions:anything that has a value
+
+
+php predefined constant:like PHP_VERSION , PHP_INT_MAX , and so on... 
+php magic constants: like __LINE__ , __DIR__ , __CLASS__ , and so on.... 
+
+.......................................
+
+data types and variables:
+
+scalar types: bool , int , float , string 
+command types: array , object , callable , iterable 
+special types:recource , null 
+
+var_dump(): print the data type of the variavle and the value
+unset(var_name): to destroy the variable
+...............................
+
+in arrays:
+print_r(array_name):print the array in a pretty way 
+
+how to push element to the end of the array:
+
+-array_name[] = 'value';
+
+-array_push(array_name , element 1 , element 2 , .....)
+
+to remaove the last element: array_pop();
+to remaove the first element: array_shift 
+note that array_shift() will reindex the array regardless the nonumeric elements
+
+we can also remove eleemnts from the array using unset() method, and pass to it the elements by index(ex:arr_name[0]) , but note that here the indexs will remain (no reindexing here) ,
+so if we have array of three elements and we delete them using unset(unset(a[0] , a[1] , a[2])) and now we push new element:(a[] = 2);
+then the index of 2 will be 3 not 0;
+
+
+how to cast the variable(change it's datatype): var_dump((new_datatype) $mainvariable)
+
+how to know if the key exist in the array or not:
+
+first we have this array:
+$a = ['a' => 2 , 'b' => null];
+
+we have two functions to return if the key exist in the array or not
+-array_key_exists(key , array_name):reutrn true if the key exists regardless of it's value
+-isset(array_name[key]):return true if the key exist and it's value is not null 
+
+some of array functions:
+
+
+-array_chunk(array_name , length of the parts , true or false(if we need to present the keys of the array or default keys)):to split the array
+
+-array_combine(array_one , array_two):to create an array from arr one and two(noe the keys , two the value) , if the length of the arrays doesn't equal , it will throw an error    
+
+-array_keys(array_name , searching value(not necesarry) , true or false(for passing the value as another datatype and if it will work or not)):to get the keys of the array , if we pass the searching value, then only the keys of this value will be stored in the array 
+
+-array_map(fn(...parametes) => operations of the fn , arrayone , arraytwo ,, ...):it will take one array or more , then it will apply the operations of the callback at the arrays. 
+
+-array_merge(arr1 , arr2 , .....):to merge the arrays , if the keys is numeric , it will reindexd , if it's string  , it will not.
+
+-in_array('value' , arr_name):return boolean value , to tell us if the element exist in the array or not 
+
+-array_search('value' , arr_name):to return the key of the element , note that if the element not exist in the array or it's the first element in the array it will return zero , so we should check firstly if the element exist in the array or not using -in_array()
+
+-array_dif(arr1 , arr2 , ....):print the elements(as a value) that is exist in arr1 and not exist in the other arrays.  
+
+-array_dif_key(arr1 , arr2 , ....):print the elements(as a keys) that is exist in arr1 and not exist in the other arrays.  
+
+-asort(arr_name):to sort the array by value
+
+-kasort(arr_name):to sort the array by key
+
+-usort(callable fn() => operations):to sort the array as we want due to our conditions
+
+............................................ 
+differences between match and switch:
+    -match doesn't need break
+    -switch doesn't need default , while match need always default(or to handle the all possible cases) , or it will throw an error
+    -match is a strict comparison(===) , while switch is a loose comparison(==)
+    -in swithch we can add a lot of statements in the cases , while we can just add one statement in match , to solve that we can put our statements in function and call it in match(it will be just one statement)
+note:
+comparison operator: ==
+identity operator: ===
+    .................................................. 
+declear statement:
+-to do something every three seconds for example.
+it's done by:
+*declearing function process what we nedd to do
+*pass this function to register_tick_function()
+*write declear(ticks = the number of seconds)
+
+-to set the value of strict_type(which is resposible of sensitive chars)
+like that:declear(strict_type = 1 or 0)
+.................................................. 
+including files:
+
+we have:include , include once , require ,require once
+the difference between include and require that :
+if the directory doesn't exist:in include it will cause warning and keep processing the script
+but in require it wil cause an error and stop script processing
+
+include once:just process the file one time and igore all of the other includes , the same thing with require once , while include and require process the script every time we use it
+....................................................................
+variable scoop:
+
+when we define variable in php it will be global and available for all other files
+
+note that when we try to override the variable into the function scoops it will not work , when we need to use vaiable into a function we should define the variable inside it.
+we can also make the using available by putting it as a prameter  , or by put(global) before it inside the function
+
+...............................................................
+working with files: 
+
+-mkdir(directory_name):to make a folder
+
+-rmdir(directory_name):to delete the folder
+
+-file_exists(file_name):return the existing status of the file(true or false)
+
+-file_size(file_name):return the size of the informations inside the file
+
+-file_put_contents(file_name , content , FILE_APPEND(if we add that , it will add the content to the file , otherwise it will override the file)):to add new content to the file or ovrride it
+
+note:after using file_put_contents() , the size of the file will not change unless if we call clearstatcache() method.
+
+-fopen(file_name , r(forexample to just read the file , we can also write on the file or read and write))
+
+-fgets(variable contain the file after openning it , like: $var = fopen(ggj.txt)) , this function read the file liine by line
+
+-fclose(file as a var):to close the file after using it
+
+-fgetcsv():to read the informations from csv file , but here it will present them as a array , while in fgets the data will be presented as a normal variables
+,this function can also read elements separated by (,)
+
+-copy(file_1 , file_2):to copy file_1 content into file_2
+
+-rename(file_1 , newname):rename the file_1
+
+note:the data type of the data in the files is recource(which is a special type)
+....................................................................................................

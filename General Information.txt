@@ -1,0 +1,517 @@
+any programming project livecycle:
+
+1- Business Analyst:ITE Engineer and not a programmer.
+
+meet the client alot of times to know his requirements, and also add some suggestions about the possible additions.
+finally he writes what we call the BRD(Business Requirements Document):it's a template 
+has all the client requirements , and then after that we get the final aprroval from the client about this BRD.
+
+2-System Analyst:ITE Engineerspecialized at the system analyznig.
+he takes the BRD and then write a Document called SRS(System Requirement Specification) also it's a template
+but has more details about the project.
+so he writes all the details of the project and make a Mockup(disigning an abstract diagram about the interfaces and the relationships between them).
+
+for example:the client needs login page.
+Business Analyst: write inside the BRD that we need login interface , with the options of login by google or facebook by example.
+system Analyst:write that we have user, password,if the password incorrect then we send a message, if it correct hten let him go to the dashboard, if he is an admin then go to the same dashboard but with more buttons inside it(because he is an admin).
+all of this details is in the SRS and the cilient will not know or specifie it.
+
+note that in every step we should take the approval of hte client.
+in the midlevel companies the previous positions will be in one position.
+
+3- UI/UX:ITE Engineer or somebody has an experience in designing, but it's better to be an ITE Engineer so he can know if the disigning ould be programmed or not.
+the UI/UX take the Mockup and the SRS and draw the interfaces depending ont he statuses we have.
+
+UI:(user interface):make the interfaces beautiful , depending on the client preferences.
+UX:(user experience):make the interface useful , arrange the buttons for example.
+
+4- Development:
+it's done by the frontend and backend developers, who's will be ITE Engineers.
+the SRS goes to them and they will make meetings and put a plan to divide the work between them.
+backend developer:apply the logic
+frontend developer:apply the interfaces reaction
+
+5- Quality Assurance/Testing:by an ITE Engineer
+
+testing types(fromt the begining to the end):
+Device test:test all the possible kinds of the devices at the result product.
+Security test:make sure that the product safe and can't be hacked.
+Automated test:apply a pressure at the product to show if it will handle it.
+               Load test:alot of users.
+               Stress test:alot of data
+Manual test:make sure that the designe match the UI/UX, and test the frontend codes.
+and finally we make deployment and upload the server on google play.
+
+other positoins:
+System Adminstrator:responsible for the servers, usually he is an ITE Network Engineer
+
+Database Adminstrator:responsible for the database and make copies from it and make sure that it work, also by the ITE Engineer
+
+Project Manager:responsible for all the previous positions working.
+
+Data Analyst:new position relatively , to analyze the data and make plans depending on the results, done by an ITE Engineer.
+...................................................................................
+Internet History:
+
+1- Terminal:
+deal with the app by the cmd using some commands , in windows or bash or unix.
+
+2- Desktop Applications:
+windows form application with the tail .exe
+disadvantages:
+can't communicate with the other Applications.
+the update on the one computer but will not applied to all the computers.
+
+3-Internet:
+to make the apps and the information shared , we invented the internet protocols
+like:TCP(Transmission Control Protocol):data movement control protocol
+     IP(Internet Protocol)
+
+4-Web:in 1989 by tim berners-lee , who suggest to make it shareable(like the previous level) , but for all the world.
+so we come with the world wide web.
+
+note:
+internet network is a communication network between the devices.
+it combine through it the web services.
+because of the large number of the web pages, we found a way to make them unique, that has been done by the URL(Uniform Resource Locator).
+
+when we for example write:www.google.com , we write the domain name.
+the DNS(Domain Nmae System will convert the domain name into  an IP).
+
+note:
+URL(Uniform Resource Locator):will give me the locatin of the wanted thing on the internet.
+example:http://google.com 
+
+URI(Uniform Resource Identifier):wil give me the the wanted thing on the internet., it has tow types:(URN and URL)
+example:urn:isbn:0445212866
+
+so, every URL-->URI , but: URI-/->URL , because the URI will not give us the locatoin like the URL.
+
+note2:the website could have more than one IP becaues it exist on more than one server in different lacations(to make it faster and better).
+so in this case, we will choose the suitable IP depending on the location, or the IP with the less number of users, or another ways.
+
+note3:
+
+IP:to differ the devices.
+Port:to differ the tasks on the one device.(because every task will take a port)
+
+5-Hyper Text:
+the web page will not cantain all the data we need , so the hyper text solve this problem, by including some links in the page 
+so we can by it move to another page and return back.
+
+6-Hyper Media:
+so we could watch media in the page without need to move to another page.
+
+7-Website:
+collection of web pages, but with some conditions:
+                connected information
+                uniform design 
+                correct architecture(moving between the pages done correctly)
+
+HTML:the structure of the page 
+CSS:the style of the page 
+JS:the reaction of the page 
+
+8- Web Applications:
+because the website is static(can't be modified) , the web applications came to make the page dynamic 
+and let the user deal with the data and modify it.
+...........................................................................
+web and software architecture:
+
+software architecture:
+-single proccess architecture(one tier)
+-client server architecture(two tier)
+-N_Tier architecture
+
+single proccess architecture:
+
+the product is just one tier, lik the terminials or the desktop applicatoins.
+disadvantages:
+can't communicate with the other applications on the other devices.
+can't update easily.
+the data is just one on the app and not shareable(the data is just on one device)
+
+client server architecture:
+
+there is two tiers:the server and the client.
+the client will take the data and pass it to the server.
+
+the logic done by the client and the server.
+when we need to apply soem edition, this edition need ot applied in all the devices,
+so it will be hard and cost a lot.
+
+N_Tier architecture:
+
+in this type we have three tiers or more, but the n=mostr used is the three tiers:
+presentation tier(GUI) , App logic tier , Data tier 
+
+presentation tier:
+
+just will react with the user and take the data from him and send it 
+to the App logic tier, it will not do any logic.
+example:web pages(html , css , js).
+        mobile applications(Native , cross platform)
+note:
+Native:to build android apps using java , or IOS apps using swift 
+cross platform:to build one app to many paltforms(in one code).
+but it's slow and cost alot, so another technology appear and do that well which is flutter.
+
+App logic tier:
+
+responsible for hte logic, will take the requests form the GUI tier and proccess it then send the resuly back to the GUI tier
+example:jave , php , python.
+note:when we want to edit something, we will just apply that on this tier, so there is no need to edit the GUI tier (like the client server architecture).
+
+Data tier:
+will store all the coming data from the logic tier
+example(mysql , sql server)
+
+note that the server could be one server for both the data and the logic tiers, or may there is one server for every tier.
+
+Web architecture:
+in 1989, tim berners lee show us how the server provide one service.
+in 1990 , we has a server that can be reached by the command line, using http protocol.
+then the browser used in common, which use the http protocol.
+
+web cores:
+HTTP(Hyper Text Transfer Protocol):to make connection between the server and the web page.
+URI(Uniform Resource Locator):to recognize the web pages.
+HTML(Hyper Text Markup Language):to build the web pages and show the responses for the user.
+
+URL parts:
+schema://host:[port]/path?[query = string] # [anchor]
+http://www.example.com[8080]/index.html?[name = ahmed]#[inbox]
+
+schema:the protocol used to access the internet:HTTP , HTTPS
+host:IP or the domain name.
+port:to know the task we need to do on the device(the default port in http:80 , in https:443)
+path:the path of the page we need to access(we know that there is a folders and files for the website).
+query string:have parameters to pass to the web page(data like the name or something else).
+anchor:to move to another place ini the page but not to another completely page(most of the new designs do that).
+
+note that the parts of the URL which is between [] are optional.
+
+HTTP protocol:
+the server make a request to the server , and the server send the response.
+usually the connection done by the proxy between them as an intermediate 
+
+firstly, the browser send a request by the ISP(internet service provider)
+to the server firewall , then the server will pass it or not.
+if we want to prevent some users from using the website, we will do that using the proxy , and we 
+will know those people by the IP.
+
+VPN(virtual private network):will connect with aserver which will hide the original location and give us another IP.
+............................................................................................
+Request and Response:
+
+request:sended by the frontend
+response:sended byt he backend 
+............
+request architecture:
+
+method/path                              http/version number 
+header1:value
+header2:value
+.
+.
+[body request]
+
+method:GET / POST / PUT / DELETE / .....
+path:path of the page 
+versoin number:number of http protocol version.
+headers:parameters passed to the web versoin to specifie the content type , 
+the most inmportant headers is the host header.
+body:data sended to the server.
+
+example:
+GET/index.html                            http/1.1
+Host:www.google.com 
+...........
+response architecture:
+
+http/version number          status code             explanation
+header1:value
+header2:value
+.
+.
+[body response]
+
+versoin number:number of http protocol version.
+status code:the status of the response 
+header:parameters for the browser 
+body:sended data to the browser(contain html and css codes).
+
+
+example:
+http/1.1                         200             ok
+//headers:
+Content-type: text/html
+Content-length: 8000
+//body:
+<html>
+<head>
+</h1>
+</body>
+
+..........
+Methods types:
+GET:to retrieve data without a request body , so we pass the parameters via the URL
+example:GET index.html?x = true
+
+POST:when asking for some information it will passed in the body 
+
+another different:
+GET:to retrieve the data , we use it when the parameters is small, so we send it by the URL
+POST:to modify the data  , we use it when the parameters are big , so we send it from the body.
+
+note that when sending sensitive data, we use the post, because the get with the url will make the sensitive data stolen.
+
+HEAD:just like the GET, but hte difference is that HEAD does not return response body , which make 
+it faster than the GET, so it return the data stored in the cache.
+
+when visiting the website for the first time, the pages will stored in the cache, so we 
+will not load it from the server, the server will return the last modified history, if it's older than the last loading then we will not load it and just we will 
+use the cache.or we will load it using the GET method.
+PUT:to put something in the database.
+DELETE:to delete something.
+
+Status codes:
+
+1:for the information:
+100 continue:part of the request did not arrive yet.
+
+2:for the success
+200 OK 
+201 Created: created successfully
+
+3:ask to do another action.
+301 Moved permanently:mean that the wanted source has been move to another place, so we have to 
+make another request to reach to it.
+
+4:for request errors
+400 Bad request:the frontend error:like sending string instead of integers.
+401 Unauthorized:we don't have the permissoin to access something
+403 Forbidden:we can not reach the content because of the block.
+404 not found:when the user need a page which is not exist(user error).
+
+5:for server errors:
+500 internal server error:has send unexpected values to the server
+503 server unavailable:when the website is in the mentainance.
+.................
+Sessions and Cookies:
+http protocol is stateless, so when we go to some website, many times, it will be just like the first time.
+
+cookies                            sessions
+stored in the device           stored on the server
+
+
+small size                     big size
+
+
+not secure                     secure(because it stored on the server)
+
+
+stored for a specific          
+period which is the            stored until we close the website or logout
+life time parameter
+
+
+ex:save the                    ex:when add something to cart so 
+Language,theme,username        it will remain until we logout or 
+and password                   delete the account on the website.
+..................................................................
+software architecture patterns:
+
+MVC(Model View Controller)
+MVP(Model View Presenter)
+MVVM(Model View ViewModel)
+
+MVC:
+Model:responsible for the database
+View:responsible for the interfaces 
+Controller:responsible for the logic and the processes
+
+the deal is between the view and the controller, then between the controller and 
+the model, and back to the controller then to the view again.
+note that is some frameworks, the dealing may be directly between the view and the model.
+
+MVP:Model View Presenter:
+Model:for the database 
+View:for the interfaces 
+Presenter:to bring the data from the model to the view.
+
+it is just like the MVC , but the dealing just done by the Presenter.
+
+MVVM:
+the view will ask the ViewModel to bring the data, then the ViewModel will bring the data and put it 
+in the live data , then the listener or (observer) will know if the data has been retrieved.
+so the data is not retrieved specially for the view.
+and also the view can access the model.
+so in this software architecture we don't know which view request for the data.
+note:this software architecture is the most secure.
+...........................................................................
+Web Services(Authenticatoin and Authorization)
+
+API(application Programming Interface):
+the front end request some API from the back , and then the backend will retrieve the data.
+
+types of web services:
+REST(Representational State Transfer)
+SOAP(Simple Object Access Protocol)
+
+REST:
+deal with the Resources, we mean that the services is not related to each others.
+we send request and then the response id XML or JSON
+
+SOAP:
+dealing witht the service as a one logic block, it's describe language is WSDL file.
+WSDL:
+XML file describe the SOAP services.
+we can use SOAP UI to test the WSDL(it's just like the postman), where we will import the 
+WSDL and then the services(requests and responces) will be generated.
+
+
+SOAP:work with any protocol 
+REST:work just with HTTP , HTTPS 
+
+SOAP:more secure(built-in Security)
+REST:less secure 
+
+SOAP:support XML
+REST:support all the formats(XML,JSON,plain text)
+
+SOAP:hard programmable
+REST:easy programmable
+
+SOAP:consume more package width
+REST:consume less package width
+
+Authenticatoin:who are you
+Authorization:what you can do 
+
+Authenticatoin ways:
+password,ID,....
+
+types of Authenticatoin:
+
+Basic:
+enter the email and password every time, it's less secure.
+
+Bearer:enter the email and password for the first time and then we will generate token and use it every time.
+
+API key:giving with every request the API key or the IP or mac address(not used commonly).
+
+OAuth 2.0:giving an access token and refresh token.
+use the access token.
+after time the access token is not allowed to use, so we will use the refresh token instead of it,
+and during this time we will produce a new acces token and new refresh token to use them.
+
+Authorization:
+
+RBAC(Role Based Access Control):
+user:give permission to the users.
+role:most common and preffered, give permessions depending on the role.
+group:give permission depending on the group
+
+ABAC(Attribute Based Access Control):
+user:by his locatoin ot address 
+environment:by a time(you can access during x time to y time).
+resource:giving the permissoin depending on the source.
+.................................................................................
+Data Storage:
+
+SQL Databese:
+tables related to each others.
+one to one , one to many , many to many
+
+NO SQL Database(Not Only SQL):
+the data is so big, it is hard to store it in tables,so we use NO SQL because it is not 
+specified by tables.
+
+types of relations between the NO SQL tables:
+
+Document:
+the data here is JSON 
+example:MongoDB
+
+Key-Value Database:
+the data stored as the key and the value 
+example:Redis
+
+Wide column Database:
+the data here sotred in unlimited number of columns
+example:Casandra
+
+Graph Database:
+the data here stored in nodes which has edges and names and weights.
+example:neo4j
+
+Local Storage:(related to mobile applications):
+        internal storage:in offline games or the dictionary app 
+        shared preferences:store the data for the first time and then it will remain(like the dark mode/cookies on the web)
+.................................
+Logging:
+operation let us know what will happen on the database and what the editoins.
+that is done by some libraries.
+
+another way to do that(using the existing tables):
+which is to add columns to the table like the user id and the data(to know which user modify the data and when).
+
+Localization:
+make the app available in many languages, that is doen by the backend(we make it by the server)
+so the server will return  a dictionary.
+we can do it by the frontend but this will not be useful because the data  in the database will not be able to translated(because it located on the server).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
