@@ -993,7 +993,7 @@ Events and Listeners:
 suppose that we have an specific action that we need to do after something else, so that is what we called the event.
 
 we use it when we have a something to happen according to another thing that has been happened.
-
+6
 for example:
 we need to send an email to the user when he register, so when he complete the register we send his data to an event.
 after that, the event will send the data to the listener and the listener will send the email depending on the data of the user.

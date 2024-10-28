@@ -1,0 +1,172 @@
+#1
+updating the record using $request->all() is not a safe way , because we will pass everything is coming in the request , and imagine that we pass is_admin property which mean that 
+we will becaome adins which is a huge security issuee  , so instead of that we have 3 ways:
+
+updating using only(which will take from the request only the passed columns in the only array)
+
+updating using form request
+
+updaty manulally just what we want in the controller
+.................................................................
+#2
+if we have to update user info , and we have atuhentication ,so intead of updating like that:
+
+$user = User::find(auth()->id());
+
+$user->update($validatedData);
+
+we can update like that:
+
+auth()->user()->update($validatedData);
+.................................................................
+#3
+suppose that there is a record has:name , bio , date , and we want to update or create the record , but the date is from us(not from the request)
+
+so instead of doing that:
+
+$validatedData = $request->validated();
+
+$data['name] = $validatedData['name];
+$data['bio] = $validatedData['bio];
+$data['date] = Carbon::now();
+
+User::create($data);
+
+we just do that:
+
+$validatedData = $request->validated();
+
+User::create($request->validated() + [
+    'date' => Carbon::now()
+]);
+................................................................
+#4
+we can change the prefix of the routes(apis or even web routes) , from the RouteServiceProvider file 
+................................................................
+#5
+suppose that we have a subject , this subject has a list of teachers , we want to show them like that:
+
+subject: math
+teachers: t1 , t2 , t3
+
+so to do that: in the resource file: 
+
+'subject' => $this->subject,
+'teachers' => $this->Teachers->implode('name' , ', '),
+.................................................................
+#6
+you can use the spatie\laravel-medialibrary for handling the files and images (upload , store , ......)
+.................................................................
+#7
+laravel love package: for the likes and dislikes handling , number of likes , persons , etc....
+.................................................................
+#8
+cron job tricks:
+
+command->daily()->then(callback function or command):
+means that we will firstly excute this command , then after it directly excuting another command or logic
+
+command->daily()->onQueue(): 
+means that we will excute a queue(queue and jobs things) by the cron job
+
+command->daily()->onSuccess(logic)->onFailure(logic):
+to do some logic on the success or the failure of the cron job (like prining something on the log file for example) , or depending on the project requirements
+
+command->dailyAt()->timezone():
+to excute this command on a specific time , but for a specific timezone(this works for the projects that will deployed on servers in a different countries)
+
+command()->daily()->runInBackground():
+to excute the command on the background without conflicting with the other commands(maybe with the same name I'm not sure)
+.................................................................
+#9
+on the validation file:
+
+protected $stopOnFirstFailure: will make the validation stop on the first failure and return the message
+
+we can also create a new rule and use it inside the rules[] array
+
+we can add a method called: prepareForValidation() , this method can be used to perform some logic on the inputs(clean the alphabetic chars from the phone number for example , so the user will not responsed by an error because of those unwanted chars).
+
+on the authorization() method , we can check the rules and permessions for example
+
+passedVlidation() method: to do some logic if the validation passed(in this case , the logic will be excuted before going to the controller)
+.................................................................
+arrive to 22
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
